@@ -1,0 +1,595 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Default Dark Mode */
+    --primary: #0f172a;
+    --primary-light: #1e293b;
+    --accent: #eab308;
+    --accent-hover: #ca8a04;
+    --accent-red: #ef4444;
+    --text-primary: #f8fafc;
+    --text-secondary: #d4dbe6;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --header-bg: rgba(43, 50, 65, 0.8);
+    --card-hover-bg: rgba(255, 255, 255, 0.05);
+    /* Dark mode hover */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+    --primary: #f8fafc;
+    --primary-light: #ffffff;
+    --accent: #eab308;
+    /* Keep accent same or adjust if needed */
+    --accent-hover: #ca8a04;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --glass-bg: rgba(15, 23, 42, 0.05);
+    /* Darker tint for light mode */
+    --glass-border: rgba(15, 23, 42, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --card-hover-bg: rgba(255, 255, 255, 0.8);
+    /* Light mode hover (clean white) */
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 1rem;
+    position: relative;
+    z-index: 1002;
+    /* Ensure it's above other elements */
+}
+
+.theme-toggle:hover {
+    background: var(--glass-bg);
+    color: var(--accent);
+    transform: rotate(15deg);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--primary);
+    color: var(--text-primary);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Header & Nav */
+header {
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-top: 50px;
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; Removed to use margin-auto method */
+}
+
+.logo {
+    margin-right: auto;
+    /* Pushes nav-links and toggle to the right */
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.nav-links .active {
+    color: var(--accent);
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--primary-light);
+    min-width: 220px;
+    box-shadow: var(--glass-shadow);
+    z-index: 1000;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    border: 1px solid var(--glass-border);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+.dropdown-menu li {
+    display: block;
+    margin: 0;
+}
+
+.dropdown-menu a {
+    color: var(--text-secondary);
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    text-transform: none;
+    transition: var(--transition);
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--accent);
+    padding-left: 1.8rem;
+}
+
+/* Hero Section (General) */
+.hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    min-height: 320px;
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+.hero-slider {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+
+    background-size: contain;   /* SHOW FULL IMAGE */
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+
+    background-color: var(--primary);
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 12, 12, 0);
+    /* Darker overlay */
+    pointer-events: none;
+
+}
+
+/* Slider Buttons */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(31, 27, 27, 0.15);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 3;
+    transition: background 0.3s ease;
+    pointer-events: auto;
+}
+
+.slider-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.slider-btn.prev {
+    left: 2rem;
+}
+
+.slider-btn.next {
+    right: 2rem;
+}
+
+/* Buttons */
+.btn {
+    padding: 1.2rem 2.8rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-block;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+}
+
+/* Partners Section */
+.partners {
+    padding: 2rem 0;
+    background: var(--primary-light);
+}
+
+.partner-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    opacity: 0.8;
+}
+
+.partner-grid img {
+    height: 40px;
+    width: auto;
+    filter: grayscale(100%) brightness(200%);
+    transition: var(--transition);
+}
+
+.partner-grid img:hover {
+    filter: none;
+    opacity: 1;
+}
+
+/* Services & Cards */
+.services {
+    padding: 6rem 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-title span {
+    color: var(--accent);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    background: var(--card-hover-bg);
+    box-shadow: var(--glass-shadow);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.card-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-link::after {
+    content: '→';
+    transition: var(--transition);
+}
+
+.card-link:hover::after {
+    transform: translateX(5px);
+}
+
+/* Footer (existing styles refined) */
+footer {
+    padding: 4rem 0;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 6rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-section a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+.animate {
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Nav Toggle */
+.mobile-nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 0;
+}
+
+.mobile-nav-toggle span {
+    width: 30px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hero {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.8rem 0;
+    }
+
+    .hero {
+        min-height: 250px;
+    }
+
+    .hero-slide {
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #0f172a;
+        /* Match body bg to hide gaps */
+    }
+
+    .slider-btn {
+        font-size: 1.2rem;
+        padding: 0.4rem;
+    }
+
+    .slider-btn.prev {
+        left: 0.5rem;
+    }
+
+    .slider-btn.next {
+        right: 0.5rem;
+    }
+
+    .mobile-nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        left: 0;
+        /* Changed from right: 0 to left: 0 per user request */
+        top: 0;
+        height: 100vh;
+        width: 75%;
+        /* Slightly wider for better readability */
+        background: var(--primary-light);
+        flex-direction: column;
+        align-items: flex-start;
+        /* Align text to left */
+        justify-content: flex-start;
+        /* Start from top */
+        padding-top: 5rem;
+        /* Space for close button/header */
+        padding-left: 2rem;
+        transform: translateX(-100%);
+        /* Start off-screen left */
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        /* Enable scrolling */
+    }
+
+    .nav-links.nav-active {
+        transform: translateX(0);
+    }
+
+    .nav-links li {
+        width: 100%;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        display: block;
+        padding: 1rem 0;
+        width: 100%;
+    }
+
+    /* Mobile Dropdown Fixes */
+    .dropdown:hover .dropdown-menu {
+        display: none;
+        /* Disable hover on mobile */
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    .certification{
+        background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),url('../images/aboutusBG.jpeg');
+    }
+
+    /* Make dropdowns click/toggle based (requires JS update) or just static for now if hover is issue. 
+       Since we can't easily add JS click toggle right now without editing JS, let's make them always visible or hoverable if needed, 
+       but standard practice is distinct. For now, let's style them to be static relative so they push content down.
+    */
+
+    .dropdown-menu {
+        position: static;
+        /* Stack vertically */
+        background: rgba(0, 0, 0, 0.2);
+        box-shadow: none;
+        border: none;
+        min-width: 100%;
+        padding-left: 1rem;
+        display: none;
+        /* Hidden by default */
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        /* Restore hover for simplicity if no JS toggle, or better yet, make them always visible? No, that's too much. Hover on mobile is tricky. */
+    }
+
+    /* Better approach for pure CSS mobile menu without JS toggle: utilize :focus or keep hover (tap counts as hover on iOS most times) */
+
+    .dropdown-menu a {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}

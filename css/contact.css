@@ -1,0 +1,176 @@
+/* Contact Page Specific Styles */
+
+.contact-container {
+    padding: 6rem 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* Form Styles */
+.contact-form {
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Fix for Select Dropdown Options */
+select.form-control {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    /* Ensure the box itself is dark */
+    color: #fff !important;
+}
+
+select.form-control option {
+    background-color: #1a1a1a !important;
+    /* Force dark background for options */
+    color: #fff !important;
+    /* Force white text */
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+}
+
+.captcha-placeholder {
+    margin-bottom: 1.5rem;
+}
+
+.captcha-placeholder img {
+    height: 50px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    /* Placeholder background to make "grapnel" text specific as image */
+    background: white;
+    padding: 5px;
+}
+
+.captcha-placeholder a {
+    display: block;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.captcha-placeholder a:hover {
+    text-decoration: underline;
+}
+
+/* Contact Info Sidebar */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.info-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.info-card h3 {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+}
+
+.person-details {
+    margin-bottom: 2rem;
+}
+
+.person-details:last-child {
+    margin-bottom: 0;
+}
+
+.person-details h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.person-details .role {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+.person-details p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+.address-block p {
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+/* Responsive adjustment for contact page */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
