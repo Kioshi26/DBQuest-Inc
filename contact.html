@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <meta charset="utf-8">
+  <title>Contact | DBQuest</title>
+  <link rel="stylesheet" href="css/modern.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body class="animate">
+
+  <header>
+    <div class="container nav-container">
+      <nav>
+        <div class="logo">
+          <a href="index.html"><img src="images/dbquest_logo_final.png" alt="DBQuest Logo"></a>
+        </div>
+
+        <button class="mobile-nav-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li class="dropdown">
+            <a href="#">Products</a>
+            <ul class="dropdown-menu">
+              <li><a href="oracle-products.html">Oracle Technology</a></li>
+              <li><a href="hp-products.html">HP BSM</a></li>
+              <li><a href="mysql-products.html">My SQL</a></li>
+              <li><a href="emc-products.html">EMC</a></li>
+              <li><a href="microsoft-products.html">Microsoft</a></li>
+              <li><a href="consulting-services.html">Database Consulting Services</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#">Training</a>
+            <ul class="dropdown-menu">
+              <li><a href="mysql-training.html">MY SQL</a></li>
+              <li><a href="oracle-infrastructure-training.html">Oracle IT infrastructure</a></li>
+              <li><a href="oracle-database-training.html">Oracle Database</a></li>
+              <li><a href="java-training.html">Java</a></li>
+              <li><a href="oracle-ebusiness-training.html">Oracle E-Business</a></li>
+              <li><a href="oracle-oci-training.html">Oracle Cloud Infrastructure</a></li>
+              <li><a href="certification.html">Oracle Certifications</a></li>
+            </ul>
+          </li>
+          <li><a href="career.html">Careers</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+
+        <button class="theme-toggle" aria-label="Toggle Dark/Light Mode">
+          <i class="fas fa-sun"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contact-container">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Left Column: Inquiry Form -->
+        <div class="contact-form">
+          <div class="section-title" style="text-align: left; margin-bottom: 2rem;">
+            <h2>Inquiry Form</h2>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">Fields marked with ( * ) are required.</p>
+          </div>
+
+          <form id="contactForm" action="send_mail.php" method="POST">
+            <div class="form-group">
+              <label for="role">You are a</label>
+              <select id="role" name="role" class="form-control">
+                <option value="">---Select---</option>
+                <option value="End-User">End-User</option>
+                <option value="Business Owner">Business Owner</option>
+                <option value="Contractor">Contractor</option>
+                <option value="Sales">Sales</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="company">Company Name</label>
+              <input type="text" id="company" name="company" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="fullname">Full Name ( * )</label>
+              <input type="text" id="fullname" name="fullname" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email ( * )</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject ( * )</label>
+              <input type="text" id="subject" name="subject" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message ( * )</label>
+              <textarea id="message" name="message" class="form-control" required></textarea>
+              <div style="text-align: right; font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                You have <span id="char-count">500</span> characters left.
+              </div>
+            </div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="copy" name="copy">
+              <label for="copy" style="display:inline; margin:0;">Send a copy of this message to yourself</label>
+            </div>
+
+            <div class="captcha-placeholder">
+              <p style="margin-bottom:0.5rem; font-size:0.9rem;">Please enter the following security code:</p>
+
+              <div style="margin-bottom: 0.5rem;">
+                <!-- Captcha Image -->
+                <img id="captchaImage" src="captcha.php" alt="Security Code"
+                  style="border: 1px solid #ccc; border-radius: 4px; vertical-align: middle;">
+                <!-- Refresh Button -->
+                <button type="button"
+                  onclick="document.getElementById('captchaImage').src = 'captcha.php?' + Math.random();"
+                  style="background: transparent; border: none; cursor: pointer; color: blue; text-decoration: underline; margin-left: 10px; font-size: 0.9rem;">
+                  Can't read? Change text.
+                </button>
+              </div>
+
+              <input type="text" name="captcha" class="form-control" style="width: 200px; margin-top: 0.5rem;" required
+                placeholder="Enter code here">
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn"
+              style="background: var(--primary-light); color: var(--accent); border: 1px solid var(--accent);">SEND</button>
+          </form>
+
+          <script>
+            document.getElementById('contactForm').addEventListener('submit', function (e) {
+              e.preventDefault();
+
+              const submitBtn = document.getElementById('submitBtn');
+              const originalBtnText = submitBtn.textContent;
+              submitBtn.disabled = true;
+              submitBtn.textContent = 'SENDING...';
+
+              const formData = new FormData(this);
+
+              fetch('send_mail.php', {
+                method: 'POST',
+                body: formData
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.status === 'success') {
+                    alert(data.message);
+                    this.reset();
+                    document.getElementById('captchaImage').src = 'captcha.php?' + Math.random();
+                  } else {
+                    alert(data.message);
+                    document.getElementById('captchaImage').src = 'captcha.php?' + Math.random();
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  alert('An error occurred. Please try again.');
+                })
+                .finally(() => {
+                  submitBtn.disabled = false;
+                  submitBtn.textContent = originalBtnText;
+                });
+            });
+          </script>
+        </div>
+
+        <!-- Right Column: Contact Info -->
+        <div class="contact-info">
+
+          <div class="info-card">
+            <h3>Contact Us</h3>
+
+            <div class="person-details">
+              <h4>For Products & Services: </h4>
+              <p>Email: inquiry@databasequest.com</p>
+            </div>
+
+            <div class="person-details">
+              <h4>For Oracle Trainings & Certifications: </h4>
+              <p>Email: educ@databasequest.com</p>
+              <p>Tel. Nos.: +632 8667-3802 to 04</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3>Company Address</h3>
+            <div class="address-block">
+              <p>Unit 2606 Antel Global Corporate Center</p>
+              <p>#3 Doña Julia Vargas Avenue</p>
+              <p>Ortigas Center, Pasig City 1600,</p>
+              <p>Philippines</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>DBQuest, Inc.</h4>
+          <p>Delivering excellence in Oracle technology and enterprise infrastructure for over a decade.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="career.html">Careers</a></li>
+            <li><a href="contact.html">Location</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="oracle-database-training.html">Oracle Training</a></li>
+            <li><a href="microsoft-products.html">Microsoft Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:inquiry@databasequest.com">inquiry@databasequest.com</a></li>
+            <li><a href="contact.html">Inquiry Form</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 DBQuest, Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

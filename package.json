@@ -1,0 +1,26 @@
+{
+  "name": "dbquest_3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cocodesu007/DBQuest_3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Cocodesu007/DBQuest_3/issues"
+  },
+  "homepage": "https://github.com/Cocodesu007/DBQuest_3#readme"
+}
